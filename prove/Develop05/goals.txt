@@ -1,0 +1,5 @@
+learn to play the piano,24,  educational,normal
+Loose weight,500,  physical,normal
+speak korean,12, educational,normal
+pray daily,12,eternal
+pray with my family,66,eternal
