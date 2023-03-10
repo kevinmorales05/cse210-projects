@@ -7,7 +7,7 @@ class Program
         
         int op = 0 ;
         while(op == 0){
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("*** Mindfulness Program ***");
             Console.WriteLine("1. Start breathing activity");
             Console.WriteLine("2. Start reflecting activity");
@@ -18,6 +18,10 @@ class Program
 
             switch (option) {
                 case "1":
+                Breathing activity = new Breathing();
+                activity.welcomeMessage();
+                activity.recursiveAnimation(10,"Breath in", "Breath out");
+                activity.finalMessage();
                     break;
                 case "2":
                     break;
