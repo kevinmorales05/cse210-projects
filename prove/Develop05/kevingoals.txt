@@ -1,0 +1,2 @@
+write a song, 12,normal
+write a book,56,eternal

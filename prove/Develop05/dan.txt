@@ -1,0 +1,4 @@
+kev,2,normal
+dan,4,normal
+juan,5,eternal
+andres,12,eternal
