@@ -14,6 +14,9 @@ public abstract class Activity
 public void setName(string name){
     _name = name;
 }
+public int getTimeInSeconds(){
+    return _activityTime;
+}
 public void setDescription(string description){
     _description = description;
 }
@@ -51,7 +54,7 @@ public void setDescription(string description){
             fromNumber--;
         } while(fromNumber > 0);
     }
-    public void loadingAnimation(){
+    public void loadingAnimation(int timeToThink){
         List<string> animationStrings = new List<string>();
         animationStrings.Add("|");
         animationStrings.Add("/");
@@ -63,7 +66,7 @@ public void setDescription(string description){
         animationStrings.Add("\\");
         foreach (string s in animationStrings){
             Console.Write(s);
-            Thread.Sleep(1000);
+            Thread.Sleep(timeToThink);
             Console.Write("\b \b");
         }
     }

@@ -24,6 +24,10 @@ class Program
                 activity.finalMessage();
                     break;
                 case "2":
+                Reflexion reflexionActivity = new Reflexion("Reflexion", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
+                reflexionActivity.welcomeMessage();
+                reflexionActivity.startActivity();
+                reflexionActivity.finalMessage();
                     break;
                 case "3":
                     break;
