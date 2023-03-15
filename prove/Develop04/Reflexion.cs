@@ -42,7 +42,7 @@ public class Reflexion : Activity
             base.loadingAnimation(500);
             fromNumber--;
         } while(fromNumber > 0 && Convert.ToInt32(timeMeasure.Elapsed.TotalMilliseconds) < base.getTimeInSeconds());
-             Console.WriteLine(timeMeasure.Elapsed.TotalMilliseconds);
+             //Console.WriteLine(timeMeasure.Elapsed.TotalMilliseconds);
 
 
 

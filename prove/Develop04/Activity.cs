@@ -41,7 +41,7 @@ public void setDescription(string description){
         }
             Console.WriteLine("Done!");
     }
-    public void recursiveAnimation( int fromNumber, string message, string messageFinish){
+    public void recursiveAnimation( int fromNumber, string message, string messageFinish, int time){
         // for (int i = fromNumber; fromNumber > 0; i--){
         //     Console.WriteLine(message + "..." + i);
         //     Thread.Sleep(_activityTime);
@@ -49,8 +49,20 @@ public void setDescription(string description){
         // }
         do {
             Console.WriteLine(message + "..." + fromNumber);
-            Thread.Sleep(_activityTime);
-            Console.WriteLine(messageFinish);
+            if(time>0){
+                Thread.Sleep(time);
+            }
+            else {
+                Thread.Sleep(_activityTime);
+            }
+          
+            if (messageFinish == "") {
+
+            }
+            else{
+                Console.WriteLine(messageFinish);
+            }
+            
             fromNumber--;
         } while(fromNumber > 0);
     }
