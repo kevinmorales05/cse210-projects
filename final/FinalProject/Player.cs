@@ -27,11 +27,17 @@ public class Player
     public void setGround(Ground ground){
         _ground = ground;
     }
+    public Ground getGround(){
+        return _ground;
+    }
     public void addRocket(Rocket rocket){
         _rockets.Add(rocket);
     }
     public void setCountry(string country){
         _country = country;
+    }
+    public string getCountry(){
+        return _country;
     }
 
 

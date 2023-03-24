@@ -22,52 +22,80 @@ public class Game
     {
         //Choose the size of the ground according to the numberOfPlayers
         int sizeOfGround = getSizeOfGround();
-
-
-        int players = Convert.ToInt32(Console.ReadLine());
         //start the game creating the players
         for (int i = 1; i <= _numberOfPlayers; i++)
         {
+            Console.WriteLine();
             Console.WriteLine("Player " + i + " What is your name?");
             string name = Console.ReadLine();
             Player newPlayer = new Player(name);
+            //Create a new Ground for each player
             Ground newGround = new Ground(sizeOfGround, sizeOfGround, _numberOfRockets);
             newPlayer.setGround(newGround);
             //select a country
             string country = chooseCountry();
             newPlayer.setCountry(country);
             //Add Rockets according to the selected country
-            for(int j = 0; j< _numberOfRockets; j++){
+            for (int j = 0; j < _numberOfRockets; j++)
+            {
                 string rocketName = country + j.ToString();
-                //choose the position of the rocket
+                
                 //1. print the ground updated
-
+                newPlayer.getGround().printGround();
+                //choose the position of the rocket
+                Console.WriteLine();
+                Console.WriteLine($"Rocket number {j + 1}");
                 Console.Write("Please write the position of the launcher in X axis: ");
                 int positionX = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Please write the position of the launcher in Y axis: ");
                 int positionY = Convert.ToInt32(Console.ReadLine());
                 //2. update the ground with the selected position, while in order to avoid to put in the same place
-
-                switch(country){
+                newPlayer.getGround().setRocketPostion(positionX,positionY);
+                //3. print the ground updated
+                newPlayer.getGround().printGround();
+                switch (country)
+                {
                     case "usa":
-                    newPlayer.addRocket(new USARocket(_lifePointsConfig,rocketName, positionX, positionY));
+                        newPlayer.addRocket(new USARocket(_lifePointsConfig, rocketName, positionX, positionY));
                         break;
                     case "china":
-                    newPlayer.addRocket(new ChinaRocket(_lifePointsConfig,rocketName, positionX, positionY));
+                        newPlayer.addRocket(new ChinaRocket(_lifePointsConfig, rocketName, positionX, positionY));
                         break;
                     case "russia":
-                    newPlayer.addRocket(new RussiaRocket(_lifePointsConfig,rocketName, positionX, positionY));
+                        newPlayer.addRocket(new RussiaRocket(_lifePointsConfig, rocketName, positionX, positionY));
                         break;
                     case "europe":
-                    newPlayer.addRocket(new EURocket(_lifePointsConfig,rocketName, positionX, positionY));
+                        newPlayer.addRocket(new EURocket(_lifePointsConfig, rocketName, positionX, positionY));
                         break;
+                }
             }
-            }
-
-
             addPlayers(newPlayer);
-        }
 
+        }
+        Console.Clear();
+        Console.WriteLine();
+        //Start the game play
+        welcomeMessage();
+        bool finishGame = false;
+
+       while (finishGame == false){
+            for(int i=0; i< _players.Count; i++){
+                Console.WriteLine($"Player {i+1}");
+                 int attackedPlayerPosition = randomPlayerChoice(i);
+                 Player attackedPlayer =  _players[attackedPlayerPosition];
+                 Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
+            }
+       }
+
+    }
+
+    public void welcomeMessage(){
+        Console.WriteLine();
+        Console.WriteLine("******************");
+        Console.WriteLine("Welcome to the Wold War III Game");
+        Console.WriteLine("All of this countries are in war, try to survive!.");
+        Console.WriteLine("******************");
+        Console.WriteLine();
     }
     public void addPlayers(Player player)
     {
@@ -77,18 +105,31 @@ public class Game
     {
 
     }
+    public List<Player> getPlayers(int position){
+        return _players;
+    }
     public void getPlayersPoints()
     {
 
     }
     public void printPointsPositions()
     {
-
+        
     }
-    public int randomPlayerChoice()
+    public int randomPlayerChoice(int positionAttacker)
     {
+        int op = 0;
+        int randomPosition=0;
+        while(op == 0){
+            Random rand = new Random();
+            int randomNumber = rand.Next(0, _players.Count);
 
-        return 0;
+            if(positionAttacker != randomNumber){
+                op = 1;
+                randomPosition = randomNumber;
+            }
+        }
+        return randomPosition;
     }
     public int getSizeOfGround()
     {
@@ -121,7 +162,7 @@ public class Game
             }
             else
             {
-                Console.WriteLine(i + _countries[i]);
+                Console.WriteLine(i + " " + _countries[i]);
             }
 
         }
@@ -139,6 +180,6 @@ public class Game
 
     }
 
-    
+
 
 }
