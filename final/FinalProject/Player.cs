@@ -39,6 +39,15 @@ public class Player
     public string getCountry(){
         return _country;
     }
+    public int getRocketSize(){
+        return _rockets.Count;
+    }
+    public Rocket GetRocket(){
+        return _rockets[0];
+    }
+    public List<Rocket> getRockets(){
+        return _rockets;
+    }
 
 
     

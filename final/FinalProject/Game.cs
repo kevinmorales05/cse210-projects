@@ -78,12 +78,30 @@ public class Game
         welcomeMessage();
         bool finishGame = false;
 
-       while (finishGame == false){
+       while (finishGame == false && _numberOfPlayers > 1 ){
             for(int i=0; i< _players.Count; i++){
-                Console.WriteLine($"Player {i+1}");
+                if(_players[i].getRocketSize()> 0){
+                    Console.WriteLine($"Player {i+1}");
                  int attackedPlayerPosition = randomPlayerChoice(i);
                  Player attackedPlayer =  _players[attackedPlayerPosition];
                  Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
+                 
+                 Console.WriteLine("*****Write the coordinates you want to attack *****");
+                 Console.Write("Please write the position of the launcher in X axis: ");
+                int positionX = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Please write the position of the launcher in Y axis: ");
+                int positionY = Convert.ToInt32(Console.ReadLine());
+                //attack a player
+                _players[i].GetRocket().attack(positionX, positionY, attackedPlayer, _attackConfig);
+
+                }
+                else {
+                    Console.WriteLine($"Player {i+1} was destroyed!");
+                }
+                
+
+
+
             }
        }
 

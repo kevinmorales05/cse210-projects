@@ -4,9 +4,9 @@ public class USARocket : Rocket
     {
     }
 
-    public override void attack()
+    public override void attack(int positionX, int positionY, Player attackedPlayer, int attackConfig)
     {
-       //define a attack of this rocket
+        base.attack(positionX, positionY, attackedPlayer, attackConfig);
     }
 
     
