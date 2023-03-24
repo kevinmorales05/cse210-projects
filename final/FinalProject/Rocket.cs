@@ -76,7 +76,7 @@ public class Rocket
 
             }
             else {
-                Console.WriteLine($"Rocket was not found!");
+                Console.WriteLine($"The enemy Rocket Launcher was not reached!");
             }
         }
     }
