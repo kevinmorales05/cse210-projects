@@ -45,7 +45,19 @@ public class Rocket
         //direct attack
         for (int i = 0; i < attackedPlayer.getRocketSize(); i++)
         {
-            if((attackedPlayer.getRockets()[i].getPositionX() == x1 &&
+           
+            if ((attackedPlayer.getRockets()[i].getPositionX() == positionX &&
+            attackedPlayer.getRockets()[i].getPositionY() == positionY)){
+                Console.WriteLine("Direct special attack! ");
+                
+                bool statusRocket = attackedPlayer.getRockets()[i].decreaseLifePoints("direct", attackConfig);
+                Console.WriteLine($"Life Points of the attacked rocket: {attackedPlayer.getRockets()[i].getLifePoints()}");
+                if(statusRocket == false){
+                    attackedPlayer.getRockets().RemoveAt(i);
+                }
+
+            }
+            else if((attackedPlayer.getRockets()[i].getPositionX() == x1 &&
             attackedPlayer.getRockets()[i].getPositionY() == y1) ||
             (attackedPlayer.getRockets()[i].getPositionX() == x2 &&
             attackedPlayer.getRockets()[i].getPositionY() == y2) ||
@@ -62,21 +74,15 @@ public class Rocket
             (attackedPlayer.getRockets()[i].getPositionX() == x8 &&
             attackedPlayer.getRockets()[i].getPositionY() == y8)
              ) {
-                Console.WriteLine("Indirect attack! ");
+                Console.WriteLine("Indirect special attack! ");
                 //decrease points of indirect attack
-                attackedPlayer.getRockets()[i].decreaseLifePoints("direct", attackConfig);
-            }
-            else if ((attackedPlayer.getRockets()[i].getPositionX() == positionX &&
-            attackedPlayer.getRockets()[i].getPositionY() == positionY)){
-                Console.WriteLine("Direct attack! ");
-                bool statusRocket = attackedPlayer.getRockets()[i].decreaseLifePoints("indirect", attackConfig);
-                if(statusRocket == false){
-                    attackedPlayer.getRockets().RemoveAt(i);
-                }
-
+                attackedPlayer.getRockets()[i].decreaseLifePoints("indirect", attackConfig);
+                //actual life points
+                Console.WriteLine($"Life Points attacked Rocket: {attackedPlayer.getRockets()[i].getLifePoints()}");
             }
             else {
                 Console.WriteLine($"The enemy Rocket Launcher was not reached!");
+                Console.WriteLine($"Life Points: {attackedPlayer.getRockets()[i].getLifePoints()}");
             }
         }
     }
@@ -92,7 +98,7 @@ public class Rocket
         if(typeOfAttack == "direct"){
             _lifePoints = _lifePoints - attackConfig;
             if(_lifePoints <= 0){
-                //desactivar Rocket porque fue destruido
+                //change the state of the rocket to destroy it
                 _state = false;
                 Console.WriteLine("They Rocket was destroyed!");
                 return false;
@@ -103,12 +109,15 @@ public class Rocket
         else {
             _lifePoints = _lifePoints - attackConfig/2;
             if(_lifePoints <= 0){
-                //desactivar Rocket porque fue destruido
+                //change the state of the rocket to destroy it
                 _state = false;
                 Console.WriteLine("They Rocket was destroyed!");
                 return false;
             }
             return true;
         }
+    }
+    public int getLifePoints(){
+        return _lifePoints;
     }
 }
