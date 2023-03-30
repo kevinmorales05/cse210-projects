@@ -20,7 +20,7 @@ public class Game
         _numberOfRockets = numRockets;
         _countries = new List<string>() { "usa", "china", "russia", "europe" };
         _counterGame = numberOfPlayers;
-        
+
 
     }
 
@@ -45,7 +45,7 @@ public class Game
             for (int j = 0; j < _numberOfRockets; j++)
             {
                 string rocketName = country + j.ToString();
-                
+
                 //1. print the ground updated
                 newPlayer.getGround().printGround();
                 //choose the position of the rocket
@@ -56,7 +56,7 @@ public class Game
                 Console.Write("Please write the position of the launcher in Y axis: ");
                 int positionY = Convert.ToInt32(Console.ReadLine());
                 //2. update the ground with the selected position, while in order to avoid to put in the same place
-                newPlayer.getGround().setRocketPostion(positionX,positionY);
+                newPlayer.getGround().setRocketPostion(positionX, positionY);
                 //3. print the ground updated
                 newPlayer.getGround().printGround();
                 switch (country)
@@ -84,46 +84,67 @@ public class Game
         welcomeMessage();
         bool finishGame = false;
 
-       while (finishGame == false && _numberOfPlayers > 1 ){
-            for(int i=0; i< _players.Count; i++){
-                if(_players.Count == 1){
-                    Console.WriteLine($"The player {i} {_players[i].getCountry()}, won with {_players[i].getPoints()}");
-                }
-                if(_players[i].getRocketSize()> 0){
-                
-                Console.WriteLine($"Player {i+1}");
-                 int attackedPlayerPosition = randomPlayerChoice(i);
-                 Player attackedPlayer =  _players[attackedPlayerPosition];
-                 Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
-                 
-                 Console.WriteLine("***** Write the coordinates you want to attack *****");
-                 Console.Write("Please write the position of the launcher in X axis: ");
-                int positionX = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Please write the position of the launcher in Y axis: ");
-                int positionY = Convert.ToInt32(Console.ReadLine());
-                //attack a player
-                _players[i].GetRocket().attack(positionX, positionY, attackedPlayer, _attackConfig);
-              
-                if(_players[i].getRockets().Count == 0){
-                    _players.RemoveAt(i);
-                    Console.WriteLine($"The player {i+1} is eliminated!");
-                }
+        while (finishGame == false)
+        {
+             Console.WriteLine($"Number of players out {_numberOfPlayers}");
+            if (_numberOfPlayers == 1)
+            {
+                Console.WriteLine("The game finished!");
+                Console.WriteLine($"Number of players {_numberOfPlayers}");
 
-
-                }
-                else {
-                    Console.WriteLine($"Player {i+1} was destroyed!");
-                }
-                
-
-
-
+                finishGame = true;
             }
-       }
+            else
+            {
+                for (int i = 0; i < _players.Count; i++)
+                {
+                    if (_players.Count == 1)
+                    {
+                        Console.WriteLine($"The player {i} {_players[i].getCountry()}, won with {_players[i].getPoints()}");
+                    }
+                    if (_players[i].getRocketSize() > 0)
+                    {
+
+                        Console.WriteLine($"Player {i + 1}");
+                        int attackedPlayerPosition = randomPlayerChoice(i);
+                        Player attackedPlayer = _players[attackedPlayerPosition];
+                        Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
+
+                        Console.WriteLine("***** Write the coordinates you want to attack *****");
+                        Console.Write("Please write the position of the launcher in X axis: ");
+                        int positionX = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Please write the position of the launcher in Y axis: ");
+                        int positionY = Convert.ToInt32(Console.ReadLine());
+                        //attack a player
+                        _players[i].GetRocket().attack(positionX, positionY, attackedPlayer, _attackConfig);
+
+                        if (_players[i].getRockets().Count == 0)
+                        {
+                            _players.RemoveAt(i);
+                            Console.WriteLine($"The player {i + 1} was eliminated!");
+                            
+                        }
+
+
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Player {i + 1} was destroyed!");
+                        _numberOfPlayers = _numberOfPlayers - 1;
+                    }
+
+
+
+
+                }
+            }
+
+        }
 
     }
 
-    public void welcomeMessage(){
+    public void welcomeMessage()
+    {
         Console.WriteLine();
         Console.WriteLine("******************");
         Console.WriteLine("Welcome to the Wold War III Game");
@@ -139,7 +160,8 @@ public class Game
     {
 
     }
-    public List<Player> getPlayers(int position){
+    public List<Player> getPlayers(int position)
+    {
         return _players;
     }
     public void getPlayersPoints()
@@ -148,17 +170,19 @@ public class Game
     }
     public void printPointsPositions()
     {
-        
+
     }
     public int randomPlayerChoice(int positionAttacker)
     {
         int op = 0;
-        int randomPosition=0;
-        while(op == 0){
+        int randomPosition = 0;
+        while (op == 0)
+        {
             Random rand = new Random();
             int randomNumber = rand.Next(0, _players.Count);
 
-            if(positionAttacker != randomNumber){
+            if (positionAttacker != randomNumber)
+            {
                 op = 1;
                 randomPosition = randomNumber;
             }
