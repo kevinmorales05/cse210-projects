@@ -4,7 +4,7 @@ public class USARocket : Rocket
     {
     }
 
-    public override void attack(int positionX, int positionY, Player attackedPlayer, int attackConfig)
+    public override void attack(int positionX, int positionY, Player attackedPlayer, int attackConfig, Player player)
     {
         //develop attack generic
         Ground attackedGround = attackedPlayer.getGround();
@@ -23,7 +23,7 @@ public class USARocket : Rocket
             attackedPlayer.getRockets()[i].getPositionY() == positionY))
             {
                 Console.WriteLine("Direct attack! ");
-
+                 player.addPoints(10);
                 bool statusRocket = attackedPlayer.getRockets()[i].decreaseLifePoints("direct", attackConfig);
                 Console.WriteLine($"Life Points attacked rocket: {attackedPlayer.getRockets()[i].getLifePoints()}");
                 if (statusRocket == false)
@@ -39,6 +39,7 @@ public class USARocket : Rocket
              )
             {
                 Console.WriteLine("Indirect attack! ");
+                 player.addPoints(5);
                 //decrease points of indirect attack
                 attackedPlayer.getRockets()[i].decreaseLifePoints("indirect", attackConfig);
                 //actual life points

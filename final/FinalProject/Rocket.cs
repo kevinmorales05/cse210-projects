@@ -17,7 +17,7 @@ public class Rocket
     {
         _state = false;
     }
-    public virtual void attack(int positionX, int positionY, Player attackedPlayer, int attackConfig)
+    public virtual void attack(int positionX, int positionY, Player attackedPlayer, int attackConfig, Player player)
     {
         //develop attack generic
         Ground attackedGround = attackedPlayer.getGround();
@@ -49,6 +49,7 @@ public class Rocket
             if ((attackedPlayer.getRockets()[i].getPositionX() == positionX &&
             attackedPlayer.getRockets()[i].getPositionY() == positionY)){
                 Console.WriteLine("Direct special attack! ");
+                player.addPoints(10);
                 
                 bool statusRocket = attackedPlayer.getRockets()[i].decreaseLifePoints("direct", attackConfig);
                 Console.WriteLine($"Life Points of the attacked rocket: {attackedPlayer.getRockets()[i].getLifePoints()}");
@@ -75,6 +76,7 @@ public class Rocket
             attackedPlayer.getRockets()[i].getPositionY() == y8)
              ) {
                 Console.WriteLine("Indirect special attack! ");
+                player.addPoints(5);
                 //decrease points of indirect attack
                 attackedPlayer.getRockets()[i].decreaseLifePoints("indirect", attackConfig);
                 //actual life points
