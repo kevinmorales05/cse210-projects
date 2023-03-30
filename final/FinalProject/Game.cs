@@ -90,19 +90,44 @@ public class Game
             //Console.WriteLine($"Number of players in the game: {_numberOfPlayers}");
             if (_counterGame == 1)
             {
+                //find the winner
+                List<Player> winners = _players.FindAll(x => x.getStatus() == true);
+                
                 Console.WriteLine();
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("The game finished!");
-                Console.WriteLine($"Player name {_players[0].getName().ToUpper()} won!");
-                Console.WriteLine($"Player points {_players[0].getPoints()}");
-                Console.WriteLine($"Country {_players[0].getCountry().ToUpper()}");
+                Console.WriteLine($"Player name {winners[0].getName().ToUpper()} won!");
+                Console.WriteLine($"Player points {winners[0].getPoints()}");
+                Console.WriteLine($"Country {winners[0].getCountry().ToUpper()}");
                 Console.WriteLine("----------------------------");
-                 Console.WriteLine();
+                Console.WriteLine();
+                
+                //order players according to the points
+                _players.Sort((x, y) => y.getPoints().CompareTo(x.getPoints()));
+
+                Console.WriteLine();
+                Console.WriteLine("------ Positions Table -----");
+                Console.WriteLine("----------------------------");
+                // int j = 1;
+                // for (int i = _players.Count; _players.Count > 0; i--)
+                // {
+                //     Console.WriteLine($"{j}. Player name {_players[i-1].getName().ToUpper()}");
+                //     Console.WriteLine($"Player country {_players[i-1].getCountry().ToUpper()}");
+                //     Console.WriteLine($"Player points {_players[i-1].getPoints()}");
+                //     j++;
+                // }
+                for(int i = 0; i<_players.Count ; i++){
+                    Console.WriteLine($"{i+1}. Player name {_players[i].getName().ToUpper()}");
+                    Console.WriteLine($"Player country {_players[i].getCountry().ToUpper()}");
+                    Console.WriteLine($"Player points {_players[i].getPoints()}");
+                }
+                Console.WriteLine("----------------------------");
+                Console.WriteLine();
                 finishGame = true;
             }
             else
             {
-                for (int i = 0; i < _players.Count; i++)
+                for (int i = 0; i < _counterGame; i++)
                 {
                     //validate if the player has rockets available to attack
                     if (_players[i].getRockets().Count >= 1)
@@ -111,9 +136,9 @@ public class Game
                         Console.WriteLine($"Player {i + 1}");
                         int attackedPlayerPosition = randomPlayerChoice(i);
                         Player attackedPlayer = _players[attackedPlayerPosition];
-                         Console.WriteLine();
+                        Console.WriteLine();
                         Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
-                         Console.WriteLine();
+                        Console.WriteLine();
                         Console.WriteLine("***** Write the coordinates you want to attack *****");
                         Console.Write("Please write the position of the enemy in X axis: ");
                         int positionX = Convert.ToInt32(Console.ReadLine());
@@ -124,23 +149,25 @@ public class Game
                         //if the attacked player do not have rockets it is desployed!
                         if (_players[attackedPlayerPosition].getRockets().Count == 0)
                         {
-                            _players.RemoveAt(attackedPlayerPosition);
+                            //_players.RemoveAt(attackedPlayerPosition);
+                            //change the status of the Player
+                            _players[attackedPlayerPosition].updateStatus(false);
                             Console.WriteLine();
-                        Console.WriteLine("----------------------------");
+                            Console.WriteLine("----------------------------");
                             Console.WriteLine($"The player {attackedPlayerPosition + 1} was eliminated!");
-                        Console.WriteLine("----------------------------");
-                         Console.WriteLine();
+                            Console.WriteLine("----------------------------");
+                            Console.WriteLine();
                             decreasePlayers(); //decrease the counter
                         }
                     }
                     else
                     {
-                        
+
                         Console.WriteLine();
                         Console.WriteLine("----------------------------");
                         Console.WriteLine($"Player {i + 1} was destroyed!");
-                         Console.WriteLine("----------------------------");
-                         Console.WriteLine();
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine();
 
                     }
                 }
@@ -187,12 +214,20 @@ public class Game
         {
             Random rand = new Random();
             int randomNumber = rand.Next(0, _players.Count);
-
-            if (positionAttacker != randomNumber)
+            //validate no activated player
+            if (_players[randomNumber].getStatus() == true)
             {
-                op = 1;
-                randomPosition = randomNumber;
+                if (positionAttacker != randomNumber)
+                {
+                    op = 1;
+                    randomPosition = randomNumber;
+                }
             }
+            
+                
+            
+
+
         }
         return randomPosition;
     }

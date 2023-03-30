@@ -51,6 +51,9 @@ public class Player
     public string getName(){
         return _name;
     }
+    public bool getStatus(){
+        return _status;
+    }
 
 
     
