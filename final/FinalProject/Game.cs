@@ -127,12 +127,11 @@ public class Game
             }
             else
             {
-                for (int i = 0; i < _counterGame; i++)
+                for (int i = 0; i < _players.Count; i++)
                 {
-                    //validate if the player has rockets available to attack
                     if (_players[i].getRockets().Count >= 1)
                     {
-
+                        //validate if the player is active
                         Console.WriteLine($"Player {i + 1}");
                         int attackedPlayerPosition = randomPlayerChoice(i);
                         Player attackedPlayer = _players[attackedPlayerPosition];
