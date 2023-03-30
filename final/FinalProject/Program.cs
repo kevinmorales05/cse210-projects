@@ -6,6 +6,9 @@ class Program
     {
         Console.WriteLine("Welcome to World War III Game!");
         Console.WriteLine("***First Set Up your Game***");
+        // Rocket rocket = new Rocket(100,"Kevin",2, 2);
+        // rocket.attackAnimation();
+        // rocket.exploitAnimation();
         int players = 0,lifePoints = 0, attack= 0, numRockets = 0;
         bool pass = false;
         while(pass == false){
@@ -38,7 +41,7 @@ class Program
         bool pass3 = false;
         while(pass3 == false){
             Console.WriteLine();
-            Console.WriteLine("How many points do you want inflict for the rocket launcher attack?: ");
+            Console.WriteLine("How many points do you want to inflict with the rocket launcher attack?: ");
             attack = Convert.ToInt32(Console.ReadLine());
              if (attack >= 1 && attack <= 500){
                 pass3 = true;

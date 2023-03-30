@@ -87,14 +87,17 @@ public class Game
 
         while (finishGame == false)
         {
-            Console.WriteLine($"Number of players in the game: {_numberOfPlayers}");
+            //Console.WriteLine($"Number of players in the game: {_numberOfPlayers}");
             if (_counterGame == 1)
             {
+                Console.WriteLine();
+                Console.WriteLine("----------------------------");
                 Console.WriteLine("The game finished!");
-                Console.WriteLine($"Number of players {_counterGame}");
-                Console.WriteLine($"Player name {_players[0].getName()} won!");
+                Console.WriteLine($"Player name {_players[0].getName().ToUpper()} won!");
                 Console.WriteLine($"Player points {_players[0].getPoints()}");
                 Console.WriteLine($"Country {_players[0].getCountry().ToUpper()}");
+                Console.WriteLine("----------------------------");
+                 Console.WriteLine();
                 finishGame = true;
             }
             else
@@ -108,8 +111,9 @@ public class Game
                         Console.WriteLine($"Player {i + 1}");
                         int attackedPlayerPosition = randomPlayerChoice(i);
                         Player attackedPlayer = _players[attackedPlayerPosition];
+                         Console.WriteLine();
                         Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
-
+                         Console.WriteLine();
                         Console.WriteLine("***** Write the coordinates you want to attack *****");
                         Console.Write("Please write the position of the enemy in X axis: ");
                         int positionX = Convert.ToInt32(Console.ReadLine());
@@ -121,13 +125,22 @@ public class Game
                         if (_players[attackedPlayerPosition].getRockets().Count == 0)
                         {
                             _players.RemoveAt(attackedPlayerPosition);
+                            Console.WriteLine();
+                        Console.WriteLine("----------------------------");
                             Console.WriteLine($"The player {attackedPlayerPosition + 1} was eliminated!");
+                        Console.WriteLine("----------------------------");
+                         Console.WriteLine();
                             decreasePlayers(); //decrease the counter
                         }
                     }
                     else
                     {
+                        
+                        Console.WriteLine();
+                        Console.WriteLine("----------------------------");
                         Console.WriteLine($"Player {i + 1} was destroyed!");
+                         Console.WriteLine("----------------------------");
+                         Console.WriteLine();
 
                     }
                 }

@@ -102,7 +102,7 @@ public class Rocket
             if(_lifePoints <= 0){
                 //change the state of the rocket to destroy it
                 _state = false;
-                Console.WriteLine("They Rocket was destroyed!");
+                Console.WriteLine("The Rocket was destroyed!");
                 return false;
             }
             return true;
@@ -113,7 +113,7 @@ public class Rocket
             if(_lifePoints <= 0){
                 //change the state of the rocket to destroy it
                 _state = false;
-                Console.WriteLine("They Rocket was destroyed!");
+                Console.WriteLine("The Rocket was destroyed!");
                 return false;
             }
             return true;
@@ -121,5 +121,27 @@ public class Rocket
     }
     public int getLifePoints(){
         return _lifePoints;
+    }
+    public void attackAnimation(){
+        int fromNumber = 5;
+        Console.WriteLine();
+        for (int i = 0; fromNumber > i; i++){
+            Console.Write("-");
+            Thread.Sleep(500);
+            Console.Write("->");
+        }
+        Console.WriteLine();
+    }
+    public virtual void exploitAnimation(){
+        int fromNumber = 5;
+        Console.WriteLine();
+        for (int i = 0; fromNumber > i; i++){
+            Console.Write(".");
+            Thread.Sleep(500);
+            
+        }
+        Console.WriteLine("<--- BOOM!!! --->");
+        Thread.Sleep(1000);
+        Console.WriteLine();
     }
 }

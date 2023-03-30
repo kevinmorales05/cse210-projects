@@ -20,10 +20,19 @@ public class RussiaRocket : Rocket
            
             if ((attackedPlayer.getRockets()[i].getPositionX() == positionX &&
             attackedPlayer.getRockets()[i].getPositionY() == positionY)){
+                
+                attackedPlayer.getRockets()[i].attackAnimation();
+                attackedPlayer.getRockets()[i].exploitAnimation(); 
+                Console.WriteLine();
+                Console.WriteLine("********************");
                 Console.WriteLine("Direct attack! ");
+                Console.WriteLine("********************");
+                Console.WriteLine();
                  player.addPoints(10);
                 bool statusRocket = attackedPlayer.getRockets()[i].decreaseLifePoints("direct", attackConfig);
+                Console.WriteLine();
                 Console.WriteLine($"Life Points of the attacked rocket: {attackedPlayer.getRockets()[i].getLifePoints()}");
+                Console.WriteLine();
                 if(statusRocket == false){
                     attackedPlayer.getRockets().RemoveAt(i);
                 }
@@ -35,16 +44,28 @@ public class RussiaRocket : Rocket
             (attackedPlayer.getRockets()[i].getPositionX() == x8 &&
             attackedPlayer.getRockets()[i].getPositionY() == y8)
              ) {
+                attackedPlayer.getRockets()[i].attackAnimation();
+                attackedPlayer.getRockets()[i].exploitAnimation(); 
+                Console.WriteLine();
+                Console.WriteLine("********************");
                 Console.WriteLine("Indirect attack! ");
+                Console.WriteLine("********************");
+                Console.WriteLine();
                  player.addPoints(5);
                 //decrease points of indirect attack
                 attackedPlayer.getRockets()[i].decreaseLifePoints("indirect", attackConfig);
                 //actual life points
+                Console.WriteLine();
                 Console.WriteLine($"Life Points attacked Rocket: {attackedPlayer.getRockets()[i].getLifePoints()}");
+                Console.WriteLine();
             }
             else {
+                 attackedPlayer.getRockets()[i].attackAnimation();
+     
+                Console.WriteLine();
                 Console.WriteLine($"The enemy Rocket Launcher was not reached!");
                 Console.WriteLine($"Life Points: {attackedPlayer.getRockets()[i].getLifePoints()}");
+                Console.WriteLine();
             }
         }
     }
