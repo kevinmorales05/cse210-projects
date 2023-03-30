@@ -22,6 +22,7 @@ public class Game
         _counterGame = numberOfPlayers;
 
 
+
     }
 
     public void startGame()
@@ -86,11 +87,15 @@ public class Game
 
         while (finishGame == false)
         {
-             Console.WriteLine($"Number of players out {_numberOfPlayers}");
-            if (_numberOfPlayers == 1)
+            Console.WriteLine($"Number of players in the game: {_numberOfPlayers}");
+            if (_counterGame == 1)
             {
                 Console.WriteLine("The game finished!");
-                Console.WriteLine($"Number of players {_numberOfPlayers}");
+                Console.WriteLine($"Number of players {_counterGame}");
+                Console.WriteLine($"Player {_players[0].getName()} won!");
+
+
+
 
                 finishGame = true;
             }
@@ -98,40 +103,47 @@ public class Game
             {
                 for (int i = 0; i < _players.Count; i++)
                 {
-                    if (_players.Count == 1)
-                    {
-                        Console.WriteLine($"The player {i} {_players[i].getCountry()}, won with {_players[i].getPoints()}");
-                    }
-                    if (_players[i].getRocketSize() > 0)
-                    {
-
-                        Console.WriteLine($"Player {i + 1}");
-                        int attackedPlayerPosition = randomPlayerChoice(i);
-                        Player attackedPlayer = _players[attackedPlayerPosition];
-                        Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
-
-                        Console.WriteLine("***** Write the coordinates you want to attack *****");
-                        Console.Write("Please write the position of the launcher in X axis: ");
-                        int positionX = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Please write the position of the launcher in Y axis: ");
-                        int positionY = Convert.ToInt32(Console.ReadLine());
-                        //attack a player
-                        _players[i].GetRocket().attack(positionX, positionY, attackedPlayer, _attackConfig);
-
-                        if (_players[i].getRockets().Count == 0)
+                    
+                        //validate if the player has rockets available to attack
+                        if (_players[i].getRockets().Count >= 1)
                         {
-                            _players.RemoveAt(i);
-                            Console.WriteLine($"The player {i + 1} was eliminated!");
+
+                            Console.WriteLine($"Player {i + 1}");
+                            int attackedPlayerPosition = randomPlayerChoice(i);
+                            Player attackedPlayer = _players[attackedPlayerPosition];
+                            Console.WriteLine($"You are going to attack the Player {attackedPlayerPosition + 1} of {attackedPlayer.getCountry().ToUpper()}");
+
+                            Console.WriteLine("***** Write the coordinates you want to attack *****");
+                            Console.Write("Please write the position of the enemy in X axis: ");
+                            int positionX = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Please write the position of the enemy in Y axis: ");
+                            int positionY = Convert.ToInt32(Console.ReadLine());
+                            //attack a player
+                            _players[i].GetRocket().attack(positionX, positionY, attackedPlayer, _attackConfig);
+                            //if the attacked player do not have rockets it is desployed!
+                            if(_players[attackedPlayerPosition].getRockets().Count == 0){
+                                _players.RemoveAt(attackedPlayerPosition);
+                                Console.WriteLine($"The player {attackedPlayerPosition + 1} was eliminated!");
+                                decreasePlayers(); //decrease the counter
+                            }
+                            // if (_players[i].getRockets().Count == 0)
+                            // {
+                            //     _players.RemoveAt(i);
+                            //     Console.WriteLine($"The player {i + 1} was eliminated!");
+                            //     decreasePlayers(); //decrease the counter
+
+                            // }
+
+
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Player {i + 1} was destroyed!");   
                             
                         }
 
+                    
 
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Player {i + 1} was destroyed!");
-                        _numberOfPlayers = _numberOfPlayers - 1;
-                    }
 
 
 
@@ -158,7 +170,7 @@ public class Game
     }
     public void decreasePlayers()
     {
-
+        _counterGame = _counterGame - 1;
     }
     public List<Player> getPlayers(int position)
     {

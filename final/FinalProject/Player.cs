@@ -48,6 +48,9 @@ public class Player
     public List<Rocket> getRockets(){
         return _rockets;
     }
+    public string getName(){
+        return _name;
+    }
 
 
     
