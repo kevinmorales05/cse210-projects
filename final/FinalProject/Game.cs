@@ -92,7 +92,7 @@ public class Game
             {
                 //find the winner
                 List<Player> winners = _players.FindAll(x => x.getStatus() == true);
-                
+
                 Console.WriteLine();
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("The game finished!");
@@ -101,7 +101,7 @@ public class Game
                 Console.WriteLine($"Country {winners[0].getCountry().ToUpper()}");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine();
-                
+
                 //order players according to the points
                 _players.Sort((x, y) => y.getPoints().CompareTo(x.getPoints()));
 
@@ -116,8 +116,9 @@ public class Game
                 //     Console.WriteLine($"Player points {_players[i-1].getPoints()}");
                 //     j++;
                 // }
-                for(int i = 0; i<_players.Count ; i++){
-                    Console.WriteLine($"{i+1}. Player name {_players[i].getName().ToUpper()}");
+                for (int i = 0; i < _players.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. Player name {_players[i].getName().ToUpper()}");
                     Console.WriteLine($"Player country {_players[i].getCountry().ToUpper()}");
                     Console.WriteLine($"Player points {_players[i].getPoints()}");
                 }
@@ -222,9 +223,9 @@ public class Game
                     randomPosition = randomNumber;
                 }
             }
-            
-                
-            
+
+
+
 
 
         }
